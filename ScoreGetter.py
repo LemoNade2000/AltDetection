@@ -64,19 +64,22 @@ def getPlayers(sampleNum, startPage, prob, nation = "GLOBAL"):
         print("{} and {}th player".format(page, count))
         
     cwd = os.getcwd()
+    trainPath = cwd + "/data/train"
+    if not os.path.exists(trainPath):
+        os.makedirs(trainPath)
     try:
         if(nation == "GLOBAL"):
-            df.to_csv(cwd + "/ScoresTill{}Global.csv".format(page), index = True, columns = df.columns, float_format = '%.6f', na_rep = 'NULL')
+            df.to_csv(trainPath + "/ScoresTill{}Global.csv".format(page), index = True, columns = df.columns, float_format = '%.6f', na_rep = 'NULL')
         else:
-            df.to_csv(cwd + "/ScoresTill{}{}.csv".format(page, nation), index = True, columns = df.columns, float_format = '%.6f', na_rep = 'NULL')
+            df.to_csv(trainPath + "/ScoresTill{}{}.csv".format(page, nation), index = True, columns = df.columns, float_format = '%.6f', na_rep = 'NULL')
     except PermissionError:
         print("Close the CSV file, and input OK")
         arg = input()
         if(arg == "OK"):
             if(nation == "GLOBAL"):
-                df.to_csv(cwd + "/ScoresTill{}Global.csv".format(page), index = True, columns = df.columns, float_format = '%.6f', na_rep = 'NULL')
+                df.to_csv(trainPath + "/ScoresTill{}Global.csv".format(page), index = True, columns = df.columns, float_format = '%.6f', na_rep = 'NULL')
             else:
-                df.to_csv(cwd + "/ScoresTill{}{}.csv".format(page, nation), index = True, columns = df.columns, float_format = '%.6f', na_rep = 'NULL')
+                df.to_csv(trainPath + "/ScoresTill{}{}.csv".format(page, nation), index = True, columns = df.columns, float_format = '%.6f', na_rep = 'NULL')
     
 print("Enter the number of samples that you want.")
 requiredSample = int(input())
